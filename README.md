@@ -1,208 +1,185 @@
-🎮 Number Guessing Game with Leaderboard (Python)
-📌 Overview
+# 🎮 Number Guessing Game with Leaderboard
 
-This is a console-based number guessing game written in Python.
+A **console-based number guessing game** in Python. Players can log in, play the game, earn points, and compete on a leaderboard. Scores are stored in a SQLite database.
+
+---
+
+## 📌 Overview
+
 The game allows players to:
 
-Create or log in with a username
+* Create or log in with a **username**
+* Play a **number guessing game**
+* Earn points based on **correct guesses**
+* Store scores in a **SQLite database**
+* View a **leaderboard** ranked by highest score
 
-Play a number guessing game
+The project is split into modules for clean organization.
 
-Earn points based on correct guesses
+---
 
-Store scores in a SQLite database
+## 🧩 Project Structure
 
-View a leaderboard ranked by highest score
-
-The program is split into three modules to keep the code clean and organized.
-
-🧩 Project Structure
+```
 project/
-│
-├── main.py                -> Main entry point of the game
-├── game_logic.py          -> Handles the game rules and logic
-├── database_fun.py        -> Handles database operations (SQLite)
-├── game_records.db        -> SQLite database (auto-created)
+├── main.py           # Main entry point of the game
+├── game_logic.py     # Handles game rules and logic
+├── database_fun.py   # Handles SQLite database operations
+├── game_records.db   # SQLite database (auto-created)
+```
 
-🛠 Requirements
-✅ Software Requirements
+---
 
-Python 3.8 or higher
+## 🛠 Requirements
 
-Windows, Linux, or macOS
+### ✅ Software Requirements
 
-Terminal / Command Prompt / PowerShell
+* Python 3.8 or higher
+* Windows, Linux, or macOS
+* Terminal / Command Prompt / PowerShell
 
-✅ Python Libraries Used
+### ✅ Python Libraries Used
 
-All libraries are built-in, no external installation needed:
+All libraries are **built-in**, no installation needed:
 
-sqlite3 → database storage
+* `sqlite3` → database storage
+* `random` → number generation
+* `time` → delays in gameplay
 
-random → number generation
+---
 
-time → delays in gameplay
+## ▶️ How to Run
 
-▶️ How to Run the Program
+1. Open a terminal in the project folder
+2. Run the program:
 
-Open a terminal in the project folder
-
-Run:
-
+```bash
 python main.py
+```
 
-🎯 How the Game Works
-1️⃣ User Selection
+---
 
-When the game starts, the user is asked:
+## 🎯 How the Game Works
 
-Option 1: Log in with an existing username
+### 1️⃣ User Selection
 
-Option 2: Create a new username
+* Option 1: Log in with an existing username
+* Option 2: Create a new username
 
-Usernames are stored in the database and must be unique.
+> Usernames must be **unique** and are stored in the database.
 
-2️⃣ Game Rules
+### 2️⃣ Game Rules
 
-The computer generates three random numbers
+* The computer generates **three random numbers**
+* One number is secretly chosen as the **correct number**
+* Player must guess the correct number
+* Player can:
 
-One of them is secretly chosen as the correct number
+  * Guess a number
+  * Type `help` to play Rock-Paper-Scissors for a clue
+  * Type `e` to exit the game
 
-The player must guess the correct number
+### 3️⃣ Scoring System
 
-The player can:
+* Correct guess = **1 point**
+* Wrong guess = **0 points**
+* The game runs **10 rounds**
+* Final score is **saved to the database**
 
-Guess a number
+### 4️⃣ Help Feature (Rock-Paper-Scissors)
 
-Type help to play Rock-Paper-Scissors for a clue
+* Typing `help` triggers a **Rock-Paper-Scissors game**
+* **Winning** gives a **range clue** for the correct number
+* **Losing** gives no clue
 
-Type e to exit the game
+### 5️⃣ Leaderboard
 
-3️⃣ Scoring System
+* Scores are updated in the database after the game
+* Leaderboard displays:
 
-Each correct guess = 1 point
+  * **Rank**
+  * **Username**
+  * **Score** (highest first)
 
-Wrong guess = 0 points
+---
 
-The game runs 10 rounds
+## 🧠 Code Explanation
 
-Final score is saved to the database
+### 📄 `database_fun.py`
 
-4️⃣ Help Feature (Rock-Paper-Scissors)
+Handles all database tasks:
 
-If the player types help:
+* Creates `players` table if it doesn’t exist
+* Adds new players
+* Checks if a username exists
+* Updates player scores
+* Fetches leaderboard data
 
-They play Rock-Paper-Scissors against the computer
+**Table Structure**:
 
-Winning gives a range clue for the correct number
+| Column   | Type      |
+| -------- | --------- |
+| username | TEXT (PK) |
+| score    | INTEGER   |
 
-Losing gives no clue
+### 📄 `game_logic.py`
 
-5️⃣ Leaderboard
+Handles all game mechanics:
 
-After the game ends:
+* `generate_number()` → creates random numbers
+* `logic_game()` → runs one game round
 
-Scores are updated in the database
+**Features:**
 
-A leaderboard is displayed showing:
+* Input validation
+* Help system
+* Win/lose logic
+* Returns score for each round
 
-Rank
+### 📄 `main.py`
 
-Username
+Main entry point:
 
-Score (highest first)
+* User login / registration
+* Runs the game loop (10 rounds)
+* Updates scores
+* Displays results and leaderboard
 
-🧠 Code Explanation (By File)
-📄 database_fun.py
+---
 
-Handles all database-related tasks using SQLite.
+## 🧪 Example Output
 
-Features:
+```
+Do you have a username?  
+Select 1 if you do, 2 if you do not  
+Enter your answer: 2
 
-Creates the players table if it doesn’t exist
+Create a username: blair
 
-Adds new players
+Choose one number (12 or 45 or 78), or press e to exit:
+```
 
-Checks if a username exists
+---
 
-Updates player scores
+## 🚀 Possible Improvements
 
-Fetches leaderboard data
+* Add **password authentication**
+* Save **game history**
+* Add **difficulty levels**
+* Create a **GUI version**
+* Convert to an **EXE using PyInstaller**
 
-Table Structure:
+---
 
-players(
-  username TEXT PRIMARY KEY,
-  score INTEGER
-)
-
-📄 game_logic.py
-
-Handles all game mechanics.
-
-Functions:
-
-generate_number() → creates random numbers
-
-logic_game() → runs one game round
-
-Key Features:
-
-Input validation
-
-Help system
-
-Win/lose logic
-
-Returns score for each round
-
-📄 main.py
-
-This is the entry point of the program.
-
-Responsibilities:
-
-User login / registration
-
-Running the game loop (10 rounds)
-
-Updating scores
-
-Displaying final results and leaderboard
-
-🧪 Example Output
-do you have a username select below
-select 1 if you have
-select 2 if you do not have
-enter your answer: 2
-create a username: blair
-
-choose one number (12 or 45 or 78), or press e to exit:
-
-🚀 Possible Improvements
-
-Add password authentication
-
-Save game history
-
-Add difficulty levels
-
-Create a GUI version
-
-Convert to an EXE using PyInstaller
-
-👨‍💻 Author Notes
+## 👨‍💻 Author Notes
 
 This project demonstrates:
 
-Python modular programming
+* Python **modular programming**
+* **Database integration**
+* Game logic design
+* Input validation
+* Basic software architecture
 
-Database integration
+> Suitable for **beginners to intermediate Python learners**.
 
-Game logic design
-
-Input validation
-
-Basic software architecture
-
-It is suitable for beginners to intermediate Python learners.
